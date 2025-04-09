@@ -74,14 +74,12 @@
                         </div>
                     </div>
                 </div>
-                @yield('sidebar-dokter')
-                @yield('pasien-sidebar')
+                @yield('sidebar')
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
         </aside>
-        @yield('dokter')
-        @yield('pasien')
+        @yield('isi')
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">

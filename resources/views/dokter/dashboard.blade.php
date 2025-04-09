@@ -1,7 +1,7 @@
 @extends('layout.pagemain')
 @section('title', 'Dokter Page')
 
-@section('sidebar-dokter')
+@section('sidebar')
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -33,7 +33,7 @@
   </nav>
 @endsection
 
-@section('dokter')
+@section('isi')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
