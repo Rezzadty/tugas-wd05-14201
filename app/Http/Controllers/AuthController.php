@@ -19,18 +19,21 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            $request->session()->regenerate();
 
+            $user = Auth::user();
             if ($user->role === 'dokter') {
                 return redirect()->route('dokter.dashboard');
             } elseif ($user->role === 'pasien') {
                 return redirect()->route('pasien.dashboard');
+            } else {
+                return redirect()->route('login');
             }
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function showRegisterForm()
@@ -61,9 +64,11 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

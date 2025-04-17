@@ -1,37 +1,5 @@
-@extends('layout.pagemain')
-@section('title', 'Dokter Obat Page')
-
-@section('sidebar')
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                   with font-awesome or any other icon font library -->
-            <li class="nav-item ">
-                <a href={{ url('/dokter') }} class="nav-link ">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        Dokter
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href={{ url('/dokter/periksa') }} class="nav-link">
-                    <p>
-                        Periksa
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item menu-open">
-                <a href={{ url('dokter/obat') }} class="nav-link active">
-                    <p>
-                        Obat
-                    </p>
-                </a>
-            </li>
-        </ul>
-    </nav>
-@endsection
+@extends('layout.main')
+@section('title', 'Dokter Edit Obat Page')
 
 @section('isi')
     <div class="content-wrapper">
