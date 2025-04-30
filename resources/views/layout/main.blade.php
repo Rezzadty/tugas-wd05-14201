@@ -213,35 +213,35 @@
         </div>
         <!-- Sidebar Menu Dokter-->
         @if (Auth::user()->role == 'dokter')
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-        with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="{{ route('dokter.dashboard') }}"
-            class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-            </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('dokter.memeriksa') }}"
-            class="nav-link {{ request()->routeIs('dokter.periksa') ? 'active' : '' }}">
-            <p>
-              Periksa
-            </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('dokter.obat') }}"
-            class="nav-link {{ request()->routeIs('dokter.obat') ? 'active' : '' }}">
-            <p>
-              Obat
-            </p>
-            </a>
-          </li>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+      with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a href="{{ route('dokter.dashboard') }}"
+          class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            Dashboard
+          </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('dokter.memeriksa') }}"
+          class="nav-link {{ request()->routeIs('dokter.memeriksa') ? 'active' : '' }}">
+          <p>
+            Periksa
+          </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('dokter.obat') }}"
+          class="nav-link {{ request()->routeIs('dokter.obat') ? 'active' : '' }}">
+          <p>
+            Obat
+          </p>
+          </a>
+        </li>
     @elseif (Auth::user()->role = 'pasien')
         <!-- Sidebar Menu Pasien-->
         <nav class="mt-2">
