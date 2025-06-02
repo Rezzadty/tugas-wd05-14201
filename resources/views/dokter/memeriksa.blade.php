@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Dokter  Page')
+@section('title', 'Dokter Periksa Page')
 
 @section('isi')
     <div class="content-wrapper">
@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Daftar Periksa Pasien </h1>
+                        <h1 class="m-0">Pasien</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Daftar Periksa Pasien</li>
+                            <li class="breadcrumb-item active">Daftar Periksa</li>
                         </ol>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                 @endif
 
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header">
                         <h3 class="card-title">Daftar Periksa Pasien</h3>
                     </div>
                     <div class="card-body">

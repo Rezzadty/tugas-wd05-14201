@@ -8,32 +8,39 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Periksa extends Model
 {
     protected $table = 'periksa';
+
     protected $fillable = [
-        'pasien_id',
-        'dokter_id',
+        'daftar_poli_id',
         'tgl_periksa',
         'catatan',
         'biaya_periksa',
-        'status' // Menambahkan kolom status ke fillable
+        'status'
     ];
 
     // Memberikan nilai default untuk status
     protected $attributes = [
-        'status' => 'menunggu'
+        'status' => 'Menunggu'
     ];
 
-    public function dokter()
+    public function daftarPoli()
     {
-        return $this->belongsTo(User::class, 'dokter_id');
-    }
-
-    public function pasien()
-    {
-        return $this->belongsTo(User::class, 'pasien_id');
+        return $this->belongsTo(DaftarPoli::class, 'daftar_poli_id');
     }
 
     public function detailPeriksa()
     {
         return $this->hasMany(DetailPeriksa::class, 'id_periksa');
+    }
+
+    // Accessor untuk mendapatkan data pasien melalui daftar poli
+    public function getPasienAttribute()
+    {
+        return $this->daftarPoli->pasien;
+    }
+
+    // Accessor untuk mendapatkan data dokter melalui daftar poli
+    public function getDokterAttribute()
+    {
+        return $this->daftarPoli->jadwal->dokter;
     }
 }

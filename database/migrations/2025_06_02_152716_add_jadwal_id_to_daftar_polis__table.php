@@ -10,11 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('detail_periksa', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_periksa')->constrained('periksa');
-            $table->foreignId('id_obat')->constrained('obat');
-            $table->timestamps();
+        Schema::table('daftar_polis', function (Blueprint $table) {
+            //
         });
     }
 
@@ -23,6 +20,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_periksa');
+        Schema::table('daftar_polis', function (Blueprint $table) {
+            //
+        });
     }
 };

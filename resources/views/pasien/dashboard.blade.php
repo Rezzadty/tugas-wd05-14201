@@ -1,95 +1,77 @@
 @extends('layout.main')
-@section('title', 'Pasien Page')
+@section('title', 'Dashboard Pasien')
 
 @section('isi')
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Pasien</h1>
-      </div><!-- /.col -->
+        <h1 class="m-0">Dashboard Pasien</h1>
+      </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard Pasien</li>
+        <li class="breadcrumb-item active">Dashboard</li>
         </ol>
-      </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+      </div>
+      </div>
     </div>
-    <!-- /.content-header -->
+    </div>
 
-    <!-- Main content -->
     <section class="content">
     <div class="container-fluid">
-      <!-- Small boxes (Stat box) -->
       <div class="row">
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
+      <div class="col-lg-12">
+        <div class="card">
+        <div class="card-body">
+          <h5>Selamat Datang, {{ Auth::user()->name }}!</h5>
+          <p>Nomor Rekam Medis Anda: {{ Auth::user()->pasien->no_rm }}</p>
+        </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="row">
+      <div class="col-lg-6">
         <div class="small-box bg-info">
         <div class="inner">
-          <h3>15</h3>
-
-          <p>Jumlah Riwayat Periksa</p>
+          <h3>Daftar Poli</h3>
+          <p>Daftar untuk pemeriksaan</p>
         </div>
         <div class="icon">
-          <i class="ion ion-bag"></i>
+          <i class="fas fa-stethoscope"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ route('pasien.periksa') }}" class="small-box-footer">
+          Daftar Sekarang <i class="fas fa-arrow-circle-right"></i>
+        </a>
         </div>
       </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
+
+      <div class="col-lg-6">
         <div class="small-box bg-success">
         <div class="inner">
-          <h3>20<sup style="font-size: 20px">%</sup></h3>
-
-          <p>Bounce Rate</p>
+          <h3>Riwayat</h3>
+          <p>Lihat riwayat pemeriksaan</p>
         </div>
         <div class="icon">
-          <i class="ion ion-stats-bars"></i>
+          <i class="fas fa-history"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-        <div class="inner">
-          <h3>44</h3>
-
-          <p>User Registrations</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-person-add"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ route('pasien.riwayat') }}" class="small-box-footer">
+          Lihat Riwayat <i class="fas fa-arrow-circle-right"></i>
+        </a>
         </div>
       </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-        <div class="inner">
-          <h3>65</h3>
-
-          <p>Unique Visitors</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-pie-graph"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
       </div>
-      <!-- ./col -->
-      </div>
-    </div><!-- /.container-fluid -->
+    </div>
     </section>
-    <!-- /.content -->
   </div>
 @endsection
+
+@push('scripts')
+  <script>
+    $(document).ready(function () {
+    // Hapus kode yang tidak diperlukan
+    });
+  </script>
+@endpush

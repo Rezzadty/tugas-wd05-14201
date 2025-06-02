@@ -262,7 +262,7 @@
             <a href="{{ route('pasien.periksa') }}"
             class="nav-link {{ request()->routeIs('pasien.periksa') ? 'active' : '' }}">
             <p>
-              Periksa
+              Pendaftaran Periksa
             </p>
             </a>
           </li>
