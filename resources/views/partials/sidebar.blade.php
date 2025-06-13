@@ -39,10 +39,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('dokter.obat') }}"
-                            class="nav-link {{ request()->routeIs('dokter.obat') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-pills"></i>
-                            <p>Kelola Obat</p>
+                        <a href="{{ route('dokter.riwayat-pasien') }}"
+                            class="nav-link {{ request()->routeIs('dokter.riwayat-pasien') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p>Riwayat Pasien</p>
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'pasien')
@@ -58,13 +58,6 @@
                             class="nav-link {{ request()->routeIs('pasien.periksa') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-calendar-plus"></i>
                             <p>Pendaftaran Periksa</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('pasien.riwayat') }}"
-                            class="nav-link {{ request()->routeIs('pasien.riwayat') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-history"></i>
-                            <p>Riwayat Periksa</p>
                         </a>
                     </li>
                 @else

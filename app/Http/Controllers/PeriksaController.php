@@ -33,7 +33,7 @@ class PeriksaController extends Controller
 
             // Dapatkan dokter yang bekerja di poli tersebut
             $dokter = Dokter::where('poli_id', $poliId)->first();
-
+            
             if (!$dokter) {
                 Log::error('Tidak ada dokter yang ditemukan untuk poli ID: ' . $poliId);
                 return response()->json(['error' => 'Dokter tidak ditemukan'], 404);

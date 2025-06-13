@@ -11,7 +11,7 @@ class JadwalPeriksaSeeder extends Seeder
     public function run(): void
     {
         // Dapatkan dokter gigi
-        $dokterGigi = User::where('email', 'gigiandika45@gmail.com')->first();
+        $dokterGigi = User::where('email', 'dokter.gigi@gmail.com')->first();
 
         // Buat jadwal untuk dokter gigi
         JadwalPeriksa::create([
@@ -31,7 +31,7 @@ class JadwalPeriksaSeeder extends Seeder
         ]);
 
         // Dapatkan dokter umum
-        $dokterUmum = User::where('email', 'umumkeren22@gmail.com')->first();
+        $dokterUmum = User::where('email', 'dokter.umum@gmail.com')->first();
 
         // Buat jadwal untuk dokter umum
         JadwalPeriksa::create([

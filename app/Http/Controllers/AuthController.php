@@ -28,11 +28,11 @@ class AuthController extends Controller
 
             // Redirect berdasarkan role
             if (auth()->user()->role === 'admin') {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin!');
             } elseif (auth()->user()->role === 'dokter') {
-                return redirect()->route('dokter.dashboard');
+                return redirect()->route('dokter.dashboard')->with('success', 'Selamat datang, Dokter!');
             } else {
-                return redirect()->route('pasien.dashboard');
+                return redirect()->route('pasien.dashboard')->with('success', 'Selamat datang!');
             }
         }
 
@@ -100,9 +100,13 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        
+        // Hapus semua session yang tersisa
+        $request->session()->flush();
+        
+        return redirect('/')->with('success', 'Anda berhasil logout');
     }
 }

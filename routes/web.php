@@ -4,13 +4,13 @@ use App\Http\Controllers\PeriksaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ObatController;
 use App\Http\Controllers\MemeriksaController;
 use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Admin\PoliController;
 use App\Http\Controllers\Admin\ObatController as AdminObatController;
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Dokter\JadwalPeriksaController;
+use App\Http\Controllers\Dokter\RiwayatPasienController;
 
 Route::middleware(['web'])->group(function () {
     /* Halaman Awal */
@@ -36,9 +36,6 @@ Route::middleware(['web'])->group(function () {
             Route::get('/pasien/get-jadwal/{poliId}', [PeriksaController::class, 'getJadwal'])->name('pasien.get-jadwal');
             Route::post('/pasien/periksa', [PeriksaController::class, 'store'])->name('pasien.periksa.store');
             Route::delete('/pasien/periksa/{id}', [PeriksaController::class, 'batal'])->name('pasien.periksa.batal');
-            Route::get('/pasien/riwayat', function () {
-                return view('pasien.riwayat');
-            })->name('pasien.riwayat');
         });
 
         Route::middleware('role:dokter')->group(function () {
@@ -49,12 +46,11 @@ Route::middleware(['web'])->group(function () {
             Route::get('/dokter/memeriksa', [MemeriksaController::class, 'index'])->name('dokter.memeriksa');
             Route::get('/dokter/memeriksa/{id}', [MemeriksaController::class, 'edit'])->name('dokter.memeriksa.edit');
             Route::put('/dokter/memeriksa/{id}', [MemeriksaController::class, 'update'])->name('dokter.memeriksa.update');
-            Route::get('/dokter/obat', [ObatController::class, 'index'])->name('dokter.obat');
-            Route::post('/dokter/obat', [ObatController::class, 'store'])->name('dokter.obat.store');
-            Route::get('/dokter/obat/{id}', [ObatController::class, 'edit'])->name('dokter.obat.edit');
-            Route::put('/dokter/obat/{id}', [ObatController::class, 'update'])->name('dokter.obat.update');
-            Route::delete('/dokter/obat/{id}', [ObatController::class, 'delete'])->name('dokter.obat.delete');
             Route::put('/dokter/memeriksa/{id}/status', [MemeriksaController::class, 'updateStatus'])->name('dokter.memeriksa.status');
+
+            // Tambahkan route untuk riwayat pasien
+            Route::get('/dokter/riwayat-pasien', [RiwayatPasienController::class, 'index'])->name('dokter.riwayat-pasien');
+            Route::get('/dokter/riwayat-pasien/{id}', [RiwayatPasienController::class, 'detail'])->name('dokter.riwayat-pasien.detail');
 
             // Jadwal Periksa
             Route::resource('dokter/jadwal-periksa', JadwalPeriksaController::class)->names([
@@ -81,11 +77,4 @@ Route::middleware(['web'])->group(function () {
             return view('errors.403');
         });
     });
-});
-
-// Route untuk login admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
-    Route::post('logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('logout');
 });

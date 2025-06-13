@@ -75,7 +75,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($obats as $obat)
+                                    @foreach ($obat as $obat)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $obat->id }}</td>

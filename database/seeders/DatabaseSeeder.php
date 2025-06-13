@@ -29,18 +29,14 @@ class DatabaseSeeder extends Seeder
         // Buat User Dokter
         $dokterGigi = User::create([
             'nama' => 'Dr. Gigi',
-            'email' => 'gigiandika45@gmail.com',
-            'no_hp' => '081225099450',
-            'alamat' => 'Jl.Oxyda No. 1',
+            'email' => 'dokter.gigi@gmail.com',
             'password' => bcrypt('password'),
             'role' => 'dokter'
         ]);
 
         $dokterUmum = User::create([
             'nama' => 'Dr. Umum',
-            'email' => 'umumkeren22@gmail.com',
-            'no_hp' => '081225099450',
-            'alamat' => 'Jl.umum No. 1',
+            'email' => 'dokter.umum@gmail.com',
             'password' => bcrypt('password'),
             'role' => 'dokter'
         ]);

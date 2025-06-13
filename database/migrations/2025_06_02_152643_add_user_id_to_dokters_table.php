@@ -10,7 +10,6 @@ class AddUserIdToDoktersTable extends Migration
     {
         Schema::table('dokters', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('alamat')->default('Alamat tidak tersedia')->change();
         });
     }
 
@@ -19,7 +18,6 @@ class AddUserIdToDoktersTable extends Migration
         Schema::table('dokters', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->string('alamat')->default(null)->change();
         });
     }
 }
