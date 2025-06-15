@@ -32,7 +32,7 @@ class DokterController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'alamat' => 'required|string',
             'no_hp' => 'required|string|max:20',
-            'poli_id' => 'required|exists:polis,id'
+            'poli_id' => 'required|exists:polis,id',
         ]);
 
         try {
@@ -40,8 +40,10 @@ class DokterController extends Controller
 
             // Buat user untuk dokter
             $user = User::create([
-                'name' => $request->nama,
+                'nama' => $request->nama,
                 'email' => $request->email,
+                'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
                 'password' => Hash::make($request->password),
                 'role' => 'dokter'
             ]);
@@ -52,7 +54,9 @@ class DokterController extends Controller
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
                 'poli_id' => $request->poli_id,
-                'user_id' => $user->id
+                'nama_poli' => Poli::find($request->poli_id)->nama_poli,
+                'user_id' => $user->id,
+                'email' => $request->email
             ]);
 
             DB::commit();
@@ -92,7 +96,7 @@ class DokterController extends Controller
             // Update nama user terkait
             if ($dokter->user) {
                 $dokter->user->update([
-                    'name' => $request->nama
+                    'nama' => $request->nama
                 ]);
             }
 

@@ -37,10 +37,12 @@ class PasienController extends Controller
         try {
             // Buat user baru
             $user = User::create([
-                'name' => $request->nama,
+                'nama' => $request->nama,        // Changed from 'name' to 'nama'
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'pasien'
+                'role' => 'pasien',
+                'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
             ]);
 
             // Generate nomor rekam medis
@@ -51,6 +53,7 @@ class PasienController extends Controller
             Pasien::create([
                 'no_rm' => $noRM,
                 'nama' => $request->nama,
+                'email' => $request->email,
                 'no_ktp' => $request->no_ktp,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,

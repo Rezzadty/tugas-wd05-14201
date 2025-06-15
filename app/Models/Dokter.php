@@ -16,7 +16,9 @@ class Dokter extends Model
         'alamat',
         'no_hp',
         'poli_id',
-        'user_id'
+        'user_id',
+        'email',
+        'nama_poli'
     ];
 
     public function user()

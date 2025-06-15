@@ -62,7 +62,7 @@ class AuthController extends Controller
 
             // Buat user baru
             $user = User::create([
-                'name' => $request->nama,
+                'nama' => $request->nama,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'pasien'
@@ -103,10 +103,10 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         // Hapus semua session yang tersisa
         $request->session()->flush();
-        
+
         return redirect('/')->with('success', 'Anda berhasil logout');
     }
 }

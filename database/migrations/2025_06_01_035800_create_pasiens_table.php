@@ -12,6 +12,8 @@ class CreatePasiensTable extends Migration
             $table->id();
             $table->string('no_rm')->unique();
             $table->string('nama');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->text('alamat');
             $table->string('no_hp');
             $table->string('no_ktp')->unique();
@@ -19,7 +21,6 @@ class CreatePasiensTable extends Migration
             $table->timestamps();
         });
     }
-
     public function down()
     {
         Schema::dropIfExists('pasiens');

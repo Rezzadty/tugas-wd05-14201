@@ -14,6 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->string('nama');
             $table->string('alamat');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('nama_poli');
             $table->string('no_hp');
             $table->foreignId('poli_id')->constrained('polis')->onDelete('cascade');
             $table->timestamps();

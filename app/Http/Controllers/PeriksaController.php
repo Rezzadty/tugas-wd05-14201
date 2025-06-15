@@ -33,7 +33,7 @@ class PeriksaController extends Controller
 
             // Dapatkan dokter yang bekerja di poli tersebut
             $dokter = Dokter::where('poli_id', $poliId)->first();
-            
+
             if (!$dokter) {
                 Log::error('Tidak ada dokter yang ditemukan untuk poli ID: ' . $poliId);
                 return response()->json(['error' => 'Dokter tidak ditemukan'], 404);
@@ -44,14 +44,14 @@ class PeriksaController extends Controller
             // Dapatkan jadwal yang aktif dari dokter tersebut
             $jadwals = JadwalPeriksa::where('dokter_id', $dokter->id)
                 ->where('status', 'Aktif')
-                ->with('dokter.user:id,name')
+                ->with('dokter.user:id,nama')
                 ->get();
 
             $formattedJadwals = $jadwals->map(function ($jadwal) {
                 return [
                     'id' => $jadwal->id,
                     'dokter' => [
-                        'name' => $jadwal->dokter->user->name
+                        'nama' => $jadwal->dokter->user->nama
                     ],
                     'hari' => $jadwal->hari,
                     'jam_mulai' => $jadwal->jam_mulai,

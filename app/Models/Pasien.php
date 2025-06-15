@@ -17,7 +17,8 @@ class Pasien extends Model
         'alamat',
         'no_ktp',
         'no_hp',
-        'user_id'
+        'user_id',
+        'email'
     ];
 
     // Relasi dengan model DaftarPoli

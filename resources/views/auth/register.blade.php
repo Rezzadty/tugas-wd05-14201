@@ -123,12 +123,6 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-
-
-
-
-
-
                     <div class="form-group">
                         <label for="alamat">
                             <i class="fas fa-map-marker-alt mr-1"></i>
