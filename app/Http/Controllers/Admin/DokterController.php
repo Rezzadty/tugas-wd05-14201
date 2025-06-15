@@ -29,10 +29,10 @@ class DokterController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8',
             'alamat' => 'required|string',
             'no_hp' => 'required|string|max:20',
-            'poli_id' => 'required|exists:polis,id',
+            'poli_id' => 'required|exists:polis,id'
         ]);
 
         try {
@@ -41,22 +41,22 @@ class DokterController extends Controller
             // Buat user untuk dokter
             $user = User::create([
                 'nama' => $request->nama,
-                'email' => $request->email,
                 'alamat' => $request->alamat,
+                'email' => $request->email,
                 'no_hp' => $request->no_hp,
                 'password' => Hash::make($request->password),
-                'role' => 'dokter'
+                'role' => 'dokter',
             ]);
 
             // Buat data dokter
             $dokter = Dokter::create([
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
+                'email' => $request->email,
                 'no_hp' => $request->no_hp,
+                'nama_poli' => Poli::find($request->poli_id)->nama_poli, // Ambil nama poli dari relasi
                 'poli_id' => $request->poli_id,
-                'nama_poli' => Poli::find($request->poli_id)->nama_poli,
-                'user_id' => $user->id,
-                'email' => $request->email
+                'user_id' => $user->id
             ]);
 
             DB::commit();
@@ -84,20 +84,32 @@ class DokterController extends Controller
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
             'no_hp' => 'required|string|max:20',
-            'poli_id' => 'required|exists:polis,id'
+            'poli_id' => 'required|exists:polis,id',
+            'password' => 'nullable|string|min:8'
         ]);
 
         try {
             DB::beginTransaction();
 
             // Update data dokter
-            $dokter->update($request->all());
+            $dokter->update([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
+                'poli_id' => $request->poli_id,
+                'nama_poli' => Poli::find($request->poli_id)->nama_poli,
+            ]);
 
-            // Update nama user terkait
+            // Update nama user terkait dan password jika ada
             if ($dokter->user) {
-                $dokter->user->update([
-                    'nama' => $request->nama
-                ]);
+                $dokter->user->nama = $request->nama;
+
+                // Update password jika diisi
+                if ($request->filled('password')) {
+                    $dokter->user->password = Hash::make($request->password);
+                }
+
+                $dokter->user->save();
             }
 
             DB::commit();
@@ -112,6 +124,7 @@ class DokterController extends Controller
                 ->withInput();
         }
     }
+
 
     public function destroy(Dokter $dokter)
     {

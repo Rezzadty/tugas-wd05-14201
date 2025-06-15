@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - Poliklinik</title>
+    <title>Login - Asahi Medical Clinic</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,7 +25,7 @@
             <div class="card-header text-center">
                 <a href="/" class="h1">
                     <i class="fas fa-hospital-alt text-primary mr-2"></i>
-                    <b>Poli</b>klinik
+                    <b>Asahi</b> Medical Clinic
                 </a>
             </div>
             <div class="card-body">
@@ -116,7 +116,7 @@
         <div class="position-absolute" style="bottom: 20px; left: 50%; transform: translateX(-50%);">
             <div class="text-center text-primary">
                 <i class="fas fa-heartbeat fa-2x mb-2"></i>
-                <p class="mb-0 font-weight-light">Sistem Informasi Poliklinik</p>
+                <p class="mb-0 font-weight-light">Login Page - Asahi Medical Clinic</p>
             </div>
         </div>
     </div>

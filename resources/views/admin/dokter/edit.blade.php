@@ -11,16 +11,6 @@
             </h3>
         </div>
         <div class="card-body">
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    {{ session('error') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-
             <form action="{{ route('admin.dokter.update', $dokter->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -96,6 +86,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock mr-1"></i>
+                        Password Baru (Opsional)
+                    </label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        name="password">
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">
+                        Kosongkan jika tidak ingin mengubah password.
+                    </small>
+                </div>
+
 
                 <div class="row mt-4">
                     <div class="col-12">

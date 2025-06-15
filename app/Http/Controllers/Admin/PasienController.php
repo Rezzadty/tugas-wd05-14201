@@ -37,12 +37,13 @@ class PasienController extends Controller
         try {
             // Buat user baru
             $user = User::create([
-                'nama' => $request->nama,        // Changed from 'name' to 'nama'
+                'nama' => $request->nama,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'pasien',
+                'no_ktp' => $request->no_ktp,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
+                'password' => Hash::make($request->password),
+                'role' => 'pasien'
             ]);
 
             // Generate nomor rekam medis
@@ -80,9 +81,13 @@ class PasienController extends Controller
             'no_ktp' => 'required|string|unique:pasiens,no_ktp,' . $pasien->id,
             'alamat' => 'required|string',
             'no_hp' => 'required|string',
+            'password' => 'nullable|string|min:8',
         ]);
 
         try {
+            DB::beginTransaction();
+
+            // Update data pasien
             $pasien->update([
                 'nama' => $request->nama,
                 'no_ktp' => $request->no_ktp,
@@ -90,8 +95,23 @@ class PasienController extends Controller
                 'no_hp' => $request->no_hp,
             ]);
 
+            // Update user terkait
+            if ($pasien->user) {
+                $pasien->user->nama = $request->nama;
+
+                // Update password jika diisi
+                if ($request->filled('password')) {
+                    $pasien->user->password = Hash::make($request->password);
+                }
+
+                $pasien->user->save();
+            }
+
+            DB::commit();
+
             return redirect()->route('admin.pasien.index')->with('success', 'Data pasien berhasil diperbarui');
         } catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
         }
     }

@@ -89,6 +89,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock mr-1"></i>
+                        Password Baru (Opsional)
+                    </label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        name="password">
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">
+                        Kosongkan jika tidak ingin mengubah password.
+                    </small>
+                </div>
 
                 <div class="row mt-4">
                     <div class="col-12">
