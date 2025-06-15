@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') - Admin Poliklinik</title>
+    <title>@yield('title') - Admin Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -50,8 +50,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('admin.dashboard') }}" class="brand-link">
-                <i class="fas fa-hospital-alt brand-image text-primary ml-3"></i>
-                <span class="brand-text font-weight-light"><b>Poli</b>klinik</span>
+                <i class="fas fa-hospital-alt align-middle text-primary ml-3 mr-2"></i>
+                <span class="brand-text font-weight-light"><b> Asahi Medical Clinic</b></span>
             </a>
 
             <!-- Sidebar -->
@@ -59,10 +59,13 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <i class="fas fa-user-shield fa-2x text-primary"></i>
+                        <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                            class="img-circle elevation-2" style="width: 50px; height: 50px;" <!-- Increased from
+                            default ~33px alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Administrator</a>
+                        <h1 style="font-size: 22.5px; color: white; margin-bottom: 5px;"> {{ Auth::user()->nama}}!</h1>
+                        <span class="badge badge-info">{{ Auth::user()->role }}</span>
                     </div>
                 </div>
 
@@ -153,11 +156,11 @@
 
         <!-- Footer -->
         <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
+            <strong>Copyright &copy; 2025 <a href="#">Asahi Medical Clinic</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; {{ date('Y') }} <a href="#" class="text-primary">Poliklinik</a>.</strong>
-            All rights reserved.
         </footer>
     </div>
 

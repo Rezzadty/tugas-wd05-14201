@@ -61,18 +61,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="jam_mulai">Jam Mulai</label>
+                                <label for="jam_mulai">Jam Mulai (Format 24 jam)</label>
                                 <input type="time" class="form-control @error('jam_mulai') is-invalid @enderror"
                                     id="jam_mulai" name="jam_mulai" value="{{ old('jam_mulai') }}" required>
+                                <small class="form-text text-muted">Gunakan format 24 jam (00:00 - 23:59)</small>
                                 @error('jam_mulai')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="jam_selesai">Jam Selesai</label>
+                                <label for="jam_selesai">Jam Selesai (Format 24 jam)</label>
                                 <input type="time" class="form-control @error('jam_selesai') is-invalid @enderror"
                                     id="jam_selesai" name="jam_selesai" value="{{ old('jam_selesai') }}" required>
+                                <small class="form-text text-muted">Gunakan format 24 jam (00:00 - 23:59)</small>
                                 @error('jam_selesai')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -102,4 +104,12 @@
             </div>
         </section>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Force 24-hour format for time inputs
+            document.getElementById('jam_mulai').setAttribute('step', '60');
+            document.getElementById('jam_selesai').setAttribute('step', '60');
+        });
+    </script>
 @endsection

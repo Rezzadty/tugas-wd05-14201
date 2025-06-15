@@ -25,7 +25,7 @@
       <div class="col-lg-12">
         <div class="card">
         <div class="card-body">
-          <h5>Selamat Datang, {{ Auth::user()->name }}!</h5>
+          <h5>Selamat Datang, {{ Auth::user()->nama }}!</h5>
           <p>Nomor Rekam Medis Anda: {{ Auth::user()->pasien->no_rm }}</p>
         </div>
         </div>

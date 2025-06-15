@@ -1,15 +1,21 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-        <span class="brand-text font-weight-light">Poliklinik</span>
+    <a href="{{ route('admin.dashboard') }}" class=" brand-link">
+        <i class="fas fa-hospital-alt align-middle text-primary ml-3 mr-2"></i>
+        <span class="brand-text font-weight-light"><b> Asahi Medical Clinic</b></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
+        <!-- Sidebar user panel -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
+                    style="width: 50px; height: 50px;" <!-- Increased from default ~33px alt="User Image">
+            </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <h1 style="font-size: 22.5px; color: white; margin-bottom: 5px;"> {{ Auth::user()->nama}}!</h1>
+                <span class="badge badge-info">{{ Auth::user()->role }}</span>
             </div>
         </div>
 
@@ -83,15 +89,6 @@
                         </a>
                     </li>
                 @endif
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="nav-link bg-danger">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>Logout</p>
-                        </button>
-                    </form>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

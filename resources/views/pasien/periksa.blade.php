@@ -115,7 +115,7 @@
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $daftar->poli->nama_poli }}</td>
-                                                    <td>{{ $daftar->jadwal->dokter->user->name }}</td>
+                                                    <td>{{ $daftar->jadwal->dokter->user->nama}}</td>
                                                     <td>{{ $daftar->jadwal->hari }}</td>
                                                     <td>{{ $daftar->jadwal->jam_mulai }}</td>
                                                     <td>{{ $daftar->jadwal->jam_selesai }}</td>
@@ -157,7 +157,7 @@
                                 data.forEach(function (jadwal) {
                                     $('#jadwal').append(
                                         '<option value="' + jadwal.id + '">' +
-                                        jadwal.dokter.name + ' - ' +
+                                        jadwal.dokter.nama + ' - ' +
                                         jadwal.hari + ' (' +
                                         jadwal.jam_mulai + ' - ' +
                                         jadwal.jam_selesai + ')</option>'

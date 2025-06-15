@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         // Buat User Dokter
         $dokterGigi = User::create([
-            'nama' => 'Dr. Gigi Towa',
+            'nama' => 'Dr. Towa',
             'alamat' => 'Jl. Tokoyami No. 2',
             'no_hp' => '08123456789',
             'email' => 'dokter.gigi@gmail.com',
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $dokterUmum = User::create([
-            'nama' => 'Dr. Umum Asumi',
+            'nama' => 'Dr. Asumi',
             'alamat' => 'Jl. Sena No. 2',
             'no_hp' => '08987654321',
             'email' => 'dokter.umum@gmail.com',
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
         // Buat data Dokter
         Dokter::create([
-            'nama' => 'Dr. Gigi',
+            'nama' => 'Dr. Towa',
             'alamat' => 'Jl. Gigi No. 1',
             'email' => 'dokter.gigi@gmail.com',
             'nama_poli' => 'Poli Gigi',
@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Dokter::create([
-            'nama' => 'Dr. Umum',
+            'nama' => 'Dr. Asumi',
             'alamat' => 'Jl. Umum No. 1',
             'email' => 'dokter.umum@gmail.com',
             'nama_poli' => 'Poli Umum',
