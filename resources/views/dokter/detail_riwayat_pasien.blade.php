@@ -123,11 +123,16 @@
                                         <tr>
                                             <td class="text-center">{{ $index + 1 }}</td>
                                             <td>{{ \Carbon\Carbon::parse($riwayat->tgl_periksa)->format('d/m/Y') }}</td>
-                                            <td>{{ $riwayat->keluhan }}</td>
+                                            <td>{{ $riwayat->daftarPoli->keluhan ?? '-' }}</td>
                                             <td>{{ $riwayat->catatan }}</td>
                                             <td>
-                                                @if($riwayat->obat_diberikan)
-                                                    {!! nl2br(e($riwayat->obat_diberikan)) !!}
+                                                @if($riwayat->obats && count($riwayat->obats))
+                                                    <ul>
+                                                        @foreach($riwayat->obats as $obat)
+                                                            <li>{{ $obat->nama_obat }} ({{ $obat->jumlah }} x
+                                                                Rp{{ number_format($obat->harga, 0, ',', '.') }})</li>
+                                                        @endforeach
+                                                    </ul>
                                                 @else
                                                     <span class="text-muted">
                                                         <i class="fas fa-info-circle mr-1"></i>

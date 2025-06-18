@@ -17,12 +17,12 @@ class MemeriksaController extends Controller
         // Ambil user yang sedang login
         $user = auth()->user();
         $dokter = $user->dokter;
-        
+
         // Ambil data pemeriksaan dari database
-        $periksas = Periksa::whereHas('daftarPoli.jadwal', function($query) use ($dokter) {
+        $periksas = Periksa::whereHas('daftarPoli.jadwal', function ($query) use ($dokter) {
             $query->where('dokter_id', $dokter->id);
         })->with(['daftarPoli.pasien', 'daftarPoli.jadwal.dokter', 'detailPeriksa'])->get();
-        
+
         return view('dokter.memeriksa', compact('periksas'));
     }
 
@@ -52,7 +52,9 @@ class MemeriksaController extends Controller
         $request->validate([
             'tgl_periksa' => 'required|date',
             'catatan' => 'required|string',
-            'status' => 'required|in:Menunggu,Dalam Proses,Selesai,Batal'
+            'status' => 'required|in:Menunggu,Dalam Proses,Selesai,Batal',
+            'obat_id' => 'nullable|array',
+            'obat_id.*' => 'exists:obat,id'
         ]);
 
         DB::beginTransaction();
@@ -64,11 +66,25 @@ class MemeriksaController extends Controller
             $periksa->update([
                 'tgl_periksa' => $request->tgl_periksa,
                 'catatan' => $request->catatan,
-                'status' => $request->status
+                'status' => $request->status,
+                'biaya_periksa' => 150000 // biaya default
             ]);
 
             // Update status di daftar poli juga
             $periksa->daftarPoli->update(['status' => $request->status]);
+
+            // Hapus detail periksa yang lama
+            $periksa->detailPeriksa()->delete();
+
+            // Simpan obat-obat yang dipilih
+            if ($request->has('obat_id')) {
+                foreach ($request->obat_id as $obatId) {
+                    $periksa->detailPeriksa()->create([
+                        'id_obat' => $obatId,
+                        'jumlah' => 1 // Bisa ditambahkan input jumlah jika diperlukan
+                    ]);
+                }
+            }
 
             DB::commit();
             return redirect()->route('dokter.memeriksa')
@@ -87,7 +103,7 @@ class MemeriksaController extends Controller
         try {
             $periksa = Periksa::findOrFail($id);
             $periksa->update(['status' => 'Selesai']);
-            
+
             // Update status di daftar poli juga
             $periksa->daftarPoli->update(['status' => 'Selesai']);
 

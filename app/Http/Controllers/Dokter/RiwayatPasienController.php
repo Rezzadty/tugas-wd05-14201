@@ -41,27 +41,38 @@ class RiwayatPasienController extends Controller
     {
         try {
             $dokter = Auth::user()->dokter;
-            $pasien = Pasien::findOrFail($id);
+            $pasien = \App\Models\Pasien::findOrFail($id);
 
-            $riwayatPeriksa = DB::table('periksa')
-                ->join('daftar_polis', 'periksa.daftar_poli_id', '=', 'daftar_polis.id')
-                ->join('jadwal_periksa', 'daftar_polis.jadwal_id', '=', 'jadwal_periksa.id')
-                ->leftJoin('detail_periksa', 'periksa.id', '=', 'detail_periksa.id_periksa')
-                ->leftJoin('obat', 'detail_periksa.id_obat', '=', 'obat.id')
-                ->select(
-                    'periksa.id',
-                    'periksa.tgl_periksa',
-                    'periksa.catatan',
-                    'daftar_polis.keluhan',
-                    DB::raw('GROUP_CONCAT(DISTINCT CONCAT(obat.nama_obat, " (Rp", FORMAT(obat.harga, 0), ")") SEPARATOR ", ") as obat_diberikan'),
-                    DB::raw('150000 + COALESCE(SUM(obat.harga), 0) as total_biaya')
-                )
-                ->where('jadwal_periksa.dokter_id', $dokter->id)
-                ->where('daftar_polis.pasien_id', $id)
-                ->where('periksa.status', 'Selesai')
-                ->groupBy('periksa.id', 'periksa.tgl_periksa', 'periksa.catatan', 'daftar_polis.keluhan')
-                ->orderBy('periksa.tgl_periksa', 'desc')
+            // Ambil semua periksa milik pasien yang diperiksa oleh dokter ini, status selesai
+            $riwayatPeriksa = \App\Models\Periksa::whereHas('daftarPoli', function ($q) use ($id, $dokter) {
+                $q->where('pasien_id', $id)
+                    ->whereHas('jadwal', function ($q2) use ($dokter) {
+                        $q2->where('dokter_id', $dokter->id);
+                    });
+            })
+                ->where('status', 'Selesai')
+                ->with(['detailPeriksa.obat', 'daftarPoli'])
+                ->orderBy('tgl_periksa', 'desc')
                 ->get();
+
+            // Tambahkan properti total_biaya dan obats ke setiap periksa
+            foreach ($riwayatPeriksa as $periksa) {
+                $totalObat = 0;
+                $obats = collect();
+                foreach ($periksa->detailPeriksa as $detail) {
+                    if ($detail->obat) {
+                        $obat = $detail->obat;
+                        // Cek apakah ada field jumlah di detail_periksa
+                        $jumlah = isset($detail->jumlah) ? $detail->jumlah : 1;
+                        $obatItem = clone $obat;
+                        $obatItem->jumlah = $jumlah;
+                        $obats->push($obatItem);
+                        $totalObat += $obat->harga * $jumlah;
+                    }
+                }
+                $periksa->obats = $obats;
+                $periksa->total_biaya = ($periksa->biaya_periksa ?? 0) + $totalObat;
+            }
 
             return view('dokter.detail_riwayat_pasien', compact('pasien', 'riwayatPeriksa'));
         } catch (\Exception $e) {

@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard Admin')
 
 @section('content')
     <div class="row">

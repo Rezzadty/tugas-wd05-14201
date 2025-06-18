@@ -10,7 +10,8 @@ class DetailPeriksa extends Model
     protected $table = 'detail_periksa';
     protected $fillable = [
         'id_periksa',
-        'id_obat'
+        'id_obat',
+        'jumlah'
 
     ];
     public function periksa()

@@ -11,7 +11,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-                    style="width: 50px; height: 50px;" <!-- Increased from default ~33px alt="User Image">
+                    style="width: 50px; height: 50px;" alt="User Image">
             </div>
             <div class="info">
                 <h1 style="font-size: 22.5px; color: white; margin-bottom: 5px;"> {{ Auth::user()->nama}}!</h1>

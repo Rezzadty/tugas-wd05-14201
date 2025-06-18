@@ -7,7 +7,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Pasien</h1>
+                        <h1 class="m-0">
+                            </i>
+                            <i class="fas fa-stethoscope mr-2"></i>
+                            Periksa Pasien
+                        </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
